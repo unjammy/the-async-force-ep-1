@@ -34,7 +34,6 @@ var oReq4 = new XMLHttpRequest();
 
   var reqListener4 = function(){
     var film = "";
-    var id = "";
     var title = "";
     var planetHeader = "";
     var planetList = "";
@@ -66,7 +65,7 @@ var oReq4 = new XMLHttpRequest();
 
           pReq = new XMLHttpRequest();
           pReq.addEventListener('load', function(){
-            thisPlanet = document.createElement('li');
+            var thisPlanet = document.createElement('li');
             thisPlanet.className = 'planet';
             var response = JSON.parse(this.responseText);
             var planetName = document.createElement('h4');
