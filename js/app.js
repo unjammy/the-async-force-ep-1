@@ -41,14 +41,14 @@ var oReq4 = new XMLHttpRequest();
 
     var response = JSON.parse(this.responseText);
 
-    console.log(response);
-
     response.results.forEach(function(movie){
 
       film = document.createElement('li');
+      film.className = 'film';
       document.getElementById('filmList').appendChild(film);
 
       title = document.createElement('h2');
+      title.className = 'filmTitle';
       title.innerHTML = movie.title;
       film.appendChild(title);
 
@@ -57,6 +57,7 @@ var oReq4 = new XMLHttpRequest();
       film.appendChild(planetHeader);
 
       planetList = document.createElement('ul');
+      planetList.className = 'filmPlanets';
       film.appendChild(planetList);
 
       (function(planetList){
@@ -66,8 +67,12 @@ var oReq4 = new XMLHttpRequest();
           pReq = new XMLHttpRequest();
           pReq.addEventListener('load', function(){
             thisPlanet = document.createElement('li');
+            thisPlanet.className = 'planet';
             var response = JSON.parse(this.responseText);
-            thisPlanet.innerHTML = response.name;
+            var planetName = document.createElement('h4');
+            planetName.className = 'planetName';
+            planetName.innerHTML = response.name;
+            thisPlanet.appendChild(planetName);
             planetList.appendChild(thisPlanet);
           });
 
