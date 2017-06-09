@@ -4,6 +4,7 @@ var oReq = new XMLHttpRequest();
 var oReq1 = new XMLHttpRequest();
 var oReq2 = new XMLHttpRequest();
 var oReq3 = new XMLHttpRequest();
+var oReq4 = new XMLHttpRequest();
 
 (function(){
 
@@ -31,6 +32,57 @@ var oReq3 = new XMLHttpRequest();
     person14Species.innerHTML = response.name;
   };
 
+  var reqListener4 = function(){
+    var film = "";
+    var id = "";
+    var title = "";
+    var planetHeader = "";
+    var planetList = "";
+
+    var response = JSON.parse(this.responseText);
+
+    console.log(response);
+
+    response.results.forEach(function(movie){
+
+      film = document.createElement('li');
+      document.getElementById('filmList').appendChild(film);
+
+      title = document.createElement('h2');
+      title.innerHTML = movie.title;
+      film.appendChild(title);
+
+      planetHeader = document.createElement('h3');
+      planetHeader.innerHTML = "Planets";
+      film.appendChild(planetHeader);
+
+      planetList = document.createElement('ul');
+      film.appendChild(planetList);
+
+      (function(planetList){
+        movie.planets.forEach( function(planet){
+
+
+          pReq = new XMLHttpRequest();
+          pReq.addEventListener('load', function(){
+            thisPlanet = document.createElement('li');
+            var response = JSON.parse(this.responseText);
+            thisPlanet.innerHTML = response.name;
+            planetList.appendChild(thisPlanet);
+          });
+
+          pReq.open('GET', planet);
+          pReq.send();
+
+
+
+       });
+      })(planetList);
+
+    });
+
+  };
+
   oReq.addEventListener('load', reqListener);
   oReq.open('GET', 'http://www.swapi.co/api/people/4');
   oReq.send();
@@ -47,5 +99,8 @@ var oReq3 = new XMLHttpRequest();
   oReq3.open('GET', 'http://swapi.co/api/species/1/');
   oReq3.send();
 
+  oReq4.addEventListener('load', reqListener4);
+  oReq4.open('GET', 'http://swapi.co/api/films/');
+  oReq4.send();
 
 })();
