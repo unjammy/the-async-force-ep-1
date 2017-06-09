@@ -26,8 +26,9 @@ var oReq3 = new XMLHttpRequest();
   };
 
   var reqListener3 = function(){
-    var respone = JSON.parse(this.responseText);
-    var person14Species = document.getElementById(person14Species);
+    var response = JSON.parse(this.responseText);
+    var person14Species = document.getElementById('person14Species');
+    person14Species.innerHTML = response.name;
   };
 
   oReq.addEventListener('load', reqListener);
@@ -41,6 +42,10 @@ var oReq3 = new XMLHttpRequest();
   oReq2.addEventListener('load', reqListener2);
   oReq2.open('GET', 'http://swapi.co/api/people/14/');
   oReq2.send();
+
+  oReq3.addEventListener('load', reqListener3);
+  oReq3.open('GET', 'http://swapi.co/api/species/1/');
+  oReq3.send();
 
 
 })();
